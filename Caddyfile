@@ -1,0 +1,38 @@
+{$SITE_DOMAIN:localhost}
+
+root * /var/www/html
+
+encode zstd gzip
+
+header {
+	X-Content-Type-Options nosniff
+	X-XSS-Protection "1; mode=block"
+	X-Robots-Tag none
+	X-Frame-Options SAMEORIGIN
+	Referrer-Policy no-referrer
+	Strict-Transport-Security "max-age=63072000; includeSubDomains; preload"
+
+	-X-Powered-By
+}
+
+file_server
+php_fastcgi app:9000
+
+redir /.well-known/carddav /remote.php/dav
+redir /.well-known/caldav /remote.php/dav
+
+@forbidden {
+	path /.htaccess
+	path /data/*
+	path /config/*
+	path /db_structure
+	path /.xml
+	path /README
+	path /3rdparty/*
+	path /lib/*
+	path /templates/*
+	path /occ
+	path /console.php
+}
+
+respond @forbidden 404
