@@ -19,11 +19,22 @@ services:
     volumes:
       - nextcloud:/var/www/html
     environment:
+      - NEXTCLOUD_TRUSTED_DOMAINS=$SITE_DOMAIN
       - POSTGRES_HOST=db
       - POSTGRES_DB=nextcloud
       - POSTGRES_USER=nextcloud
       - REDIS_HOST=redis
     env_file: .env
+    depends_on:
+      - db
+      - redis
+
+  cron:
+    image: nextcloud:fpm-alpine
+    restart: always
+    volumes_from:
+      - app:ro
+    entrypoint: /cron.sh
     depends_on:
       - db
       - redis

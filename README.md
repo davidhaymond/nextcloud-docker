@@ -1,14 +1,42 @@
 # nextcloud-docker
 
-My custom NextCloud setup.
+My custom NextCloud setup featuring automatic HTTPS,
+powered by Docker, PostgreSQL, Redis, and Caddy.
 
 ## Prerequisites
 
-Docker and Docker Compose must be installed.
+Install [Docker](https://docs.docker.com/engine/install/) and [Docker Compose](https://docs.docker.com/compose/install/).
 
 ## Usage
 
 1. Clone the repo.
-2. Rename `.env.example` to `.env`.
+   ```sh
+   git clone https://github.com/davidhaymond/nextcloud-docker.git
+   ```
+2. Copy `.env.example` to `.env` and adjust permissions:
+   ```sh
+   cp .env.example .env
+   chmod 600 .env
+   ```
 3. Edit `.env` in your favorite editor, setting the environment variables appropriately.
-4. Run `docker-compose up`.
+   ```sh
+   $EDITOR .env
+   ```
+4. Create a volume to store Caddy certificates and data:
+   ```sh
+   docker volume create caddy_data
+   ```
+4. Start the app:
+   ```sh
+   docker-compose up -d
+   ```
+
+## Upgrading
+
+Upgrade to the latest version with:
+
+```sh
+git pull
+docker-compose pull
+docker-compose up -d
+```
