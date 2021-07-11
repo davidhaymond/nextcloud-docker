@@ -12,6 +12,7 @@ Install [Docker](https://docs.docker.com/engine/install/) and [Docker Compose](h
 1. Clone the repo.
    ```sh
    git clone https://github.com/davidhaymond/nextcloud-docker.git
+   cd nextcloud-docker
    ```
 2. Copy `.env.example` to `.env` and adjust permissions:
    ```sh
