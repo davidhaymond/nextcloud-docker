@@ -33,7 +33,7 @@ services:
     image: nextcloud:fpm-alpine
     restart: always
     volumes_from:
-      - app:ro
+      - app
     entrypoint: /cron.sh
     depends_on:
       - db
