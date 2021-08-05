@@ -1,6 +1,6 @@
 services:
   db:
-    image: postgres:alpine
+    image: postgres:13-alpine
     restart: always
     volumes:
       - db:/var/lib/postgresql/data
@@ -10,11 +10,11 @@ services:
     env_file: .env
 
   redis:
-    image: redis:alpine
+    image: redis:6-alpine
     restart: always
 
   app:
-    image: nextcloud:fpm-alpine
+    image: nextcloud:21-fpm-alpine
     restart: always
     volumes:
       - nextcloud:/var/www/html
@@ -30,7 +30,7 @@ services:
       - redis
 
   cron:
-    image: nextcloud:fpm-alpine
+    image: nextcloud:21-fpm-alpine
     restart: always
     volumes_from:
       - app
@@ -40,7 +40,7 @@ services:
       - redis
 
   web:
-    image: caddy:alpine
+    image: caddy:2-alpine
     restart: always
     ports:
       - 80:80
